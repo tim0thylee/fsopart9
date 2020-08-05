@@ -10,6 +10,19 @@ interface TrainingObject{
 
 const exerciseData = [3, 0, 2, 4.5, 0, 3, 1]
 
+const parsedArray = (args: Array<string>): Array<number> => {
+    if (args.length < 4) throw new Error('Not enough arguments');
+    const parsedNumbers = []
+    for (let i = 2; i < args.length; i++) {
+        if (isNaN(Number(args[i]))) {
+            throw new Error('Provided values were not numbers!');
+        } else {
+            parsedNumbers.push(Number(args[i]))
+        }
+    }
+    return parsedNumbers
+}
+
 const calculateExercises = (exercise: Array<number>, target: number) : TrainingObject => {
     let trainingDays = 0;
     let success = false;
@@ -43,5 +56,12 @@ const calculateExercises = (exercise: Array<number>, target: number) : TrainingO
         average
     }
 }
+try {
+    const userEntries = parsedArray(process.argv);
+    const target = userEntries[0]
+    const exerciseData = userEntries.slice(1)
+    console.log(calculateExercises(exerciseData, target))
+} catch (e) {
+    console.log('Error, something bad happened, message: ', e.message);
+}
 
-console.log(calculateExercises(exerciseData, 2))
