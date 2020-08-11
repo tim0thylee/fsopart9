@@ -1,4 +1,8 @@
-type Result = string;
+interface Result {
+  weight: number,
+  height: number, 
+  bmi: string
+};
 
 interface MultiplyValues {
   value1: number,
@@ -19,15 +23,21 @@ const parseArguments = (args: Array<string>): MultiplyValues => {
   }
 }
 
-const calculateBmi = (height: number, weight: number) : Result => {
+export const calculateBmi = (height: number, weight: number) : Result => {
     const meters = height / 100
     const bmi = weight / (meters * meters)
+    let text = ''
     if (bmi < 18.5) {
-      return 'Under (unhealthy weight)'
+      text =  'Under (unhealthy weight)'
     } else if (bmi >= 18.5 && bmi < 25) {
-      return 'Normal (healthy weight)'
+      text =  'Normal (healthy weight)'
     } else {
-      return 'Over (unhealthy weight)'
+      text = 'Over (unhealthy weight)'
+    }
+    return {
+      weight,
+      height,
+      bmi: text
     }
 }
 
