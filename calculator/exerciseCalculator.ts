@@ -1,4 +1,4 @@
-interface TrainingObject{ 
+export interface TrainingObject{ 
     periodLength: number,
     trainingDays: number,
     success: boolean,
@@ -8,22 +8,20 @@ interface TrainingObject{
     average: number
 }
 
-const exerciseData = [3, 0, 2, 4.5, 0, 3, 1]
-
 const parsedArray = (args: Array<string>): Array<number> => {
     if (args.length < 4) throw new Error('Not enough arguments');
-    const parsedNumbers = []
+    const parsedNumbers = [];
     for (let i = 2; i < args.length; i++) {
         if (isNaN(Number(args[i]))) {
             throw new Error('Provided values were not numbers!');
         } else {
-            parsedNumbers.push(Number(args[i]))
+            parsedNumbers.push(Number(args[i]));
         }
     }
-    return parsedNumbers
-}
+    return parsedNumbers;
+};
 
-const calculateExercises = (exercise: Array<number>, target: number) : TrainingObject => {
+export const calculateExercises = (exercise: Array<number>, target: number) : TrainingObject => {
     let trainingDays = 0;
     let success = false;
     let rating = 1;
@@ -34,7 +32,7 @@ const calculateExercises = (exercise: Array<number>, target: number) : TrainingO
             trainingDays++;
         }
         return acc + currentValue;
-    }, 0)
+    }, 0);
     const average = sumOfTraining / periodLength;
     if (average < target - 1) {
         ratingDescription = 'Must try harder';
@@ -44,7 +42,7 @@ const calculateExercises = (exercise: Array<number>, target: number) : TrainingO
     } else {
         rating = 3;
         success = true;
-        ratingDescription = 'Congrats! you did it!'
+        ratingDescription = 'Congrats! you did it!';
     }
     return {
         periodLength,
@@ -54,13 +52,13 @@ const calculateExercises = (exercise: Array<number>, target: number) : TrainingO
         ratingDescription,
         target,
         average
-    }
-}
+    };
+};
 try {
     const userEntries = parsedArray(process.argv);
-    const target = userEntries[0]
-    const exerciseData = userEntries.slice(1)
-    console.log(calculateExercises(exerciseData, target))
+    const target = userEntries[0];
+    const exerciseData = userEntries.slice(1);
+    console.log(calculateExercises(exerciseData, target));
 } catch (e) {
     console.log('Error, something bad happened, message: ', e.message);
 }
