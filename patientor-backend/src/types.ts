@@ -14,3 +14,5 @@ export interface PatientEntry {
     occupation: string
 
 }
+
+export type NewPatientEntry = Omit<PatientEntry, 'id'>;
