@@ -31,7 +31,12 @@ const App: React.FC = () => {
     exerciseSubmissionLink: string;
   }
 
-  type CoursePart = CoursePartOne | CoursePartTwo | CoursePartThree;
+  interface CoursePartFour extends CoursePartBaseDescription {
+    name: "Hello fellow kids";
+    motto: string;
+  }
+
+  type CoursePart = CoursePartOne | CoursePartTwo | CoursePartThree | CoursePartFour;
 
   // this is the new coursePart variable
   const courseParts: CoursePart[] = [
@@ -50,6 +55,12 @@ const App: React.FC = () => {
       exerciseCount: 14,
       description: "Confusing description",
       exerciseSubmissionLink: "https://fake-exercise-submit.made-up-url.dev"
+    },
+    {
+      name: "Hello fellow kids",
+      exerciseCount: 54,
+      description: "A class for fitting in with youth",
+      motto: "Yolo"
     }
   ];
 
