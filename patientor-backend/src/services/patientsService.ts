@@ -4,8 +4,8 @@ import { PatientEntry, NewPatientEntry } from '../types';
 const patients : Array<PatientEntry> = patientsData; 
 
 const getPatients = () : Omit<PatientEntry, 'ssn'>[] => {
-    return patients.map(({id, name, dateOfBirth, gender, occupation}) => ({
-        id, name, dateOfBirth, gender, occupation
+    return patients.map(({id, name, dateOfBirth, gender, occupation, entries}) => ({
+        id, name, dateOfBirth, gender, occupation, entries
     }));
 };
 
@@ -17,6 +17,7 @@ const getPatient = (id : string) => {
 const addPatient = (entry : NewPatientEntry): PatientEntry => {
     const newPatientEntry = {
         id: patients[patients.length - 1].id + '1',
+        entries: [],
         ...entry
     };
     patients.push(newPatientEntry);
