@@ -8,10 +8,14 @@ router.get('/', (_req, res) => {
     res.send(patientService.getPatients());
 });
 
+router.get('/:id', (req, res) => {
+    const foundPatient = patientService.getPatient(req.params.id);
+    res.send(foundPatient);
+});
 
 router.post('/', (req, res) => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    console.log(req.body)
+    console.log(req.body);
     const parsePatient = toNewPatientEntry(req.body);
     const { name, dateOfBirth, ssn, gender, occupation } = parsePatient;
 

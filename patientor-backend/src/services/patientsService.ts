@@ -5,8 +5,13 @@ const patients : Array<PatientEntry> = patientsData;
 
 const getPatients = () : Omit<PatientEntry, 'ssn'>[] => {
     return patients.map(({id, name, dateOfBirth, gender, occupation}) => ({
-        id, name, dateOfBirth, gender, occupation  
+        id, name, dateOfBirth, gender, occupation
     }));
+};
+
+const getPatient = (id : string) => {
+    const foundPatient = patients.find(patient => patient.id === id);
+    return foundPatient;
 };
 
 const addPatient = (entry : NewPatientEntry): PatientEntry => {
@@ -20,5 +25,6 @@ const addPatient = (entry : NewPatientEntry): PatientEntry => {
 
 export default {
     getPatients,
-    addPatient
+    addPatient,
+    getPatient
 };
