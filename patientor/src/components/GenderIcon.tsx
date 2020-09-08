@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon } from 'semantic-ui-react'
+import { Icon } from 'semantic-ui-react';
 
 type BarProps = {
     gender: string;
