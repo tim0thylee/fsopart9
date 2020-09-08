@@ -1,11 +1,11 @@
 import React, {useEffect} from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import { Icon } from 'semantic-ui-react';
 
 import { apiBaseUrl } from "../constants";
 import { Patient } from "../types";
 import { useStateValue } from "../state";
+import GenderIcon from '../components/GenderIcon';
 
 
 const PatientPage: React.FC = () => {
@@ -27,12 +27,15 @@ const PatientPage: React.FC = () => {
     fetchPatient();
     if(patient[id]){console.log(patient[id]);}
     }, []);
-    console.log(patient)
+   
     return (
         <>
             {patient[id] ? 
                 (<div>
-                    <h1>{patient[id].name}</h1>
+                    <h1>
+                      {patient[id].name}
+                      <GenderIcon gender={patient[id].gender}/>
+                    </h1>
                     <div>ssn: {patient[id].ssn}</div>
                     <div>occupation: {patient[id].occupation}</div>
                 </div>) 
