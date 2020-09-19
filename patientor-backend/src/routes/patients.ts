@@ -13,6 +13,16 @@ router.get('/:id', (req, res) => {
     res.send(foundPatient);
 });
 
+router.get('/:id/entries', (req, res) => {
+    const foundPatientEntries = patientService.getPatient(req.params.id)?.entries;
+    res.send(foundPatientEntries);
+});
+
+router.post('/:id/entries', (req, res) => {
+    const foundEntry = patientService.addEntry(req.body, req.params.id);
+    res.send(foundEntry);
+});
+
 router.post('/', (req, res) => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     console.log(req.body);

@@ -1,5 +1,10 @@
 import patientsData from '../../data/patients';
-import { PatientEntry, NewPatientEntry } from '../types';
+import { PatientEntry,
+         NewPatientEntry, 
+         Entry, 
+         HospitalEntry, 
+         OccupationalHealthcareEntry, 
+         HealthCheckEntry} from '../types';
 
 const patients : Array<PatientEntry> = patientsData; 
 
@@ -24,8 +29,55 @@ const addPatient = (entry : NewPatientEntry): PatientEntry => {
     return newPatientEntry;
 };
 
+const addEntry = (entry : Entry, id: string): Entry => {
+    var ID = function () {
+        return '_' + Math.random().toString(36).substr(2, 9);
+    };
+    const foundPatient = patients.find(patient => patient.id === id);
+    const { description, date, specialist, diagnosisCodes, type} = entry;
+    const newEntry = {
+        id: ID(),
+        description,
+        date,
+        specialist,
+        diagnosisCodes
+    }
+    if (type === "OccupationalHealthcare") {
+        const {employerName, sickLeave } = entry as OccupationalHealthcareEntry;
+        const occupationalObject = {
+            ...newEntry,
+            employerName,
+            type,
+            sickLeave
+        };
+        foundPatient?.entries.push(occupationalObject);
+        return occupationalObject;
+    } else if (type === "HealthCheck") {
+        const {healthCheckRating} = entry as HealthCheckEntry;
+        const healthObject =  {
+            ...newEntry,
+            type, 
+            healthCheckRating
+        }
+        foundPatient?.entries.push(healthObject);
+        return healthObject;
+    } else if (type === "Hospital") {
+        const {discharge} = entry as HospitalEntry;
+        const hospitalObject =  {
+            ...newEntry,
+            type,
+            discharge
+        }
+        foundPatient?.entries.push(hospitalObject);
+        return hospitalObject;
+    } else {
+        throw new Error("Not a proper format")
+    }
+}
+
 export default {
     getPatients,
     addPatient,
-    getPatient
+    getPatient,
+    addEntry
 };
